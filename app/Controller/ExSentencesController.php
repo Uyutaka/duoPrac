@@ -24,4 +24,14 @@ class ExSentencesController extends AppController {
 
     }
     
+    public function json(){
+
+        $result = $this->ExSentence->find('all');
+        $items = json_encode($result);
+
+        echo $items;
+        $this->ext = '.json';
+        $this->render('index');
+    }
+
 }
