@@ -23,7 +23,7 @@ class ExSentencesController extends AppController {
         $this->render('index');
 
     }
-    
+
     public function json(){
 
         $result = $this->ExSentence->find('all');
