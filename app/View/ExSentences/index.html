@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="jp">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h2>EXSENTECES</h2>
+
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Japanese</th>
+        <th>English</th>
+        <th>Section</th>
+    </tr>
+    <?php foreach ($ex_sentences as $row): ?>
+    <tr>
+
+        <td><?php echo h($row['ExSentence']['id']);?></td>
+        <td><?php echo h($row['ExSentence']['japanese']);?></td>
+        <td><?php echo h($row['ExSentence']['english']);?></td>
+        <td><?php echo h($row['ExSentence']['section']);?></td>
+
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<!--<?php var_dump($ex_sentences); ?>-->
+</body>
+</html>

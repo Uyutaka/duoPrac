@@ -7,6 +7,11 @@
  */
 
 class QuestionsController extends AppController{
+
+
+    public $helpers = array('Html', 'Form', 'Session');
+
+
     public function index(){
         //view指定
         $this->ext = '.html';
@@ -16,27 +21,23 @@ class QuestionsController extends AppController{
     public function enBasic($id){
 
 
-        $ansOption = array('fields' => array('Question.id','Question.japanese'),
-                        'conditions' =>array('Question.id' => $id)
-            );
-        $question = $this->Question->find('all',$ansOption);
-        $this->set('question', $question); //$ex_sentences::view用変数, 取り出し操作
 
-
-        $ansOption = array('fields' => array('Question.id','Question.english'),
-                           'conditions' => array('Question.id' => $id)
-            );
-        $answer = $this->Question->find('all', $ansOption);
-
-        $this->set('answer', $answer);
+        $this->set('question', $this->Question->getJapanese($id));
+        $this->set('answer', $this->Question->getEnglish($id));
+        $this->set('word_count', $this->Question->getWordCount($id));
 
 
 
-        $wordCountOption = array('fields' => array('EnInfo.id','EnInfo.word_count'),
-            'conditions' =>array('EnInfo.id' => $id)
-            );
-        $word_count = $this->Question->find('all', $wordCountOption);
-        $this->set('word_count', $word_count);
+        if ($this->request->is('post')) {
+            $this->Question->set($this->request->data);
+            $this->Question->validates();
+        }
+
+
+        $postAnswer = $this->request->data['Question']['answer'];
+        if($postAnswer == true){
+            $this->Question->check($postAnswer, $id);
+        }
 
 
 
