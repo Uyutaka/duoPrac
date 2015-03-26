@@ -24,44 +24,64 @@ class Question extends AppModel{
     );
 
 
+
     public $validate = array(
         'answer' => array(
-        'rule' => 'check',
-        'message' => '単語数が異なります'
+            'wordCountRule' => array(
+                'rule' => array('val_postWord',1),
+                'message' => '単語数が異なるります。'
+            ),
+            'contailsRule' => array(
+                'rule' => array('val_postWord',2),
+                'message' => '半角英数字で入力してください。'
+            )
         )
-        );
+    );
 
 
+    public function val_postWord($postAnswer, $check){
+        $postWords = explode(" ", $postAnswer['answer']);
 
-    public function checkWordCount($postAnswer,$id){
-        $postWordCount = explode(" ", $postAnswer);
-        if($postWordCount == $this->getWordCount($id)){
-            return true;
-        }else{
-            return false;
+        $id = $this->getUrlParam(3); //urlの三番目の値　改良したい。。
+
+        switch($check){
+
+            case 1: //単語数の判定
+                if (count($postWords) == $this->getWordCount($id)) {
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
+                }
+
+            case 2: // TODO 半角英数字の判定
+                return true;
+                break;
         }
-
-
 
     }
 
-    public function check($postAnswer, $id){
-        $postWords = explode(" ", $postAnswer);
+    public function val_wordContents($postAnswer){
+        $postWords = explode(" ", $postAnswer['answer']);
+        for($i = 0; $i = count($postWords); $i++){
+//            if($postWords[$i])
+        }
+    }
 
 
-        var_dump('-------');
-        var_dump($postWords);
 
-        if(count($postWords) == $this->getWordCount($id)){
-            echo 'success';
+
+    //正誤判定
+    public function enBasic_checkWord($postAnswer){
+        var_dump($postAnswer);
+        $id = $this->getUrlParam(3);
+        $correct = $this->getEnglish($id);
+        if($postAnswer == $correct){
             return true;
         }else{
-            echo 'error';
             return false;
         }
-
-
-
     }
 
     ////////////////////
@@ -92,4 +112,13 @@ class Question extends AppModel{
         return $jp[0]['Question']['japanese'];
     }
 
+    public function getUrlParam($num){
+        $url = Router::url();
+        $params = explode('/', $url);
+        if($num) {
+            return $params[$num];
+        }else{
+            return $params;
+        }
+    }
 }

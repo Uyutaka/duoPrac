@@ -5,16 +5,40 @@
     <title></title>
 </head>
 <body>
-<h2>問題</h2>
-<h3><?php echo($question); echo($word_count.'単語');?></h3>
+<h2>
+    問題<?php echo $id . '   :     '.$word_count.'単語';?>
+</h2>
+
+<h3><?php echo($question);?></h3>
 
 <?php echo ($answer); ?>
 
 <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
 <?php echo $this->Form->input('Question.answer', array('required' => false));?>
     <!--required => false  にしないとブラウザのエラーがでる。-->
-<?php echo $this->Form->error('Question.answer');?>
-<?php echo $this->Form->end('送信') ;?>
 
-</body>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php echo $this->Form->error('Question.answer');?>
+<?php echo $this->Form->end('解答！') ;?>
+<?php echo $msg;?>
+<br>
+<br>
+<br>
+<a href="<?php echo $id-1; ?>">前の問題</a>
+<br>
+<br>
+<br>
+<a href="<?php echo $id+1; ?>">次の問題</a>
+
 </html>
