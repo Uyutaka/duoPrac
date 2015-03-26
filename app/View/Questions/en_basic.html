@@ -3,6 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <?php echo $this->Html->script( 'jquery.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script( 'enBasicQuestion.js', array( 'inline' => true));?>
+
 </head>
 <body>
 <h2>
@@ -16,6 +19,9 @@
 <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
 <?php echo $this->Form->input('Question.answer', array('required' => false));?>
     <!--required => false  にしないとブラウザのエラーがでる。-->
+
+
+
 
 
 

@@ -74,7 +74,7 @@ class Question extends AppModel{
 
     //正誤判定
     public function enBasic_checkWord($postAnswer){
-        var_dump($postAnswer);
+//        var_dump($postAnswer);
         $id = $this->getUrlParam(3);
         $correct = $this->getEnglish($id);
         if($postAnswer == $correct){

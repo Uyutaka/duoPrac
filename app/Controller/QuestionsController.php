@@ -47,7 +47,7 @@ class QuestionsController extends AppController{
             );
 
             if ($judge == true) {
-                echo 'true';
+//                echo 'true';
                 $data += array('flag' => 1);
                 $msg = '正解です！';
             }else{ //不正解の時
@@ -63,9 +63,9 @@ class QuestionsController extends AppController{
 
         $this->set('msg', $msg);
 
-            //view指定
-            $this->ext = '.html';
-            $this->render('en_basic');
+         //view指定
+        $this->ext = '.html';
+        $this->render('en_basic');
 
 
     }

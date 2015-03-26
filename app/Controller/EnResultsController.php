@@ -7,6 +7,5 @@
  */
 
 class EnResultsController extends AppController{
-
     public $scaffold;
 }

@@ -9,6 +9,4 @@
 
 class EnInfo extends AppModel{
     public $useTable = 'en_infos';
-
-
 }
