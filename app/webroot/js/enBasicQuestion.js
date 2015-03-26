@@ -4,7 +4,14 @@
 
 jQuery(function ($) {
 
-    $("h2").css({"text-align" : "center", "color" : "blue"});
-    $("h3").css({"text-align" : "center", "color" : "red"});
-    
+    $(".main").css("text-align", "center");
+
+    $("#next").css("float", "right");
+    $("#previous").css("float", "left");
+    $("#judge").css("color", "red");
+
+
+
+    $("h2").css("color", "blue")
+
 });

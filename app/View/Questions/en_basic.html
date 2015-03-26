@@ -8,43 +8,43 @@
 
 </head>
 <body>
-<h2>
-    問題<?php echo $id . '   :     '.$word_count.'単語';?>
-</h2>
 
-<h3><?php echo($question);?></h3>
+<div class="main">
+    <h2>
+        問題<?php echo $id . '   :     '.$word_count.'単語';?>
+    </h2>
 
-<?php echo ($answer); ?>
+    <h3><?php echo($question);?></h3>
 
-<?php echo $this->Form->create('Question', array('type' => 'post')); ?>
-<?php echo $this->Form->input('Question.answer', array('required' => false));?>
-    <!--required => false  にしないとブラウザのエラーがでる。-->
+    <?php echo ($answer); ?>
 
-
-
-
+    <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
+    <?php echo $this->Form->input('Question.answer', array('required' => false));?>
+        <!--required => false  にしないとブラウザのエラーがでる。-->
 
 
+    <?php echo $this->Form->error('Question.answer');?>
+
+    <?php
+        echo '<div id="judge">';
+        echo $msg;
+        echo '</div>';
+    ?>
+
+    <?php echo $this->Form->end('解答する！') ;?>
+</div><!--.main-->
 
 
 
+<div class="quest">
+    <div id="previous"><a href="<?php echo $id-1; ?>">前の問題</a></div>
+    <div id="next"><a href="<?php echo $id+1; ?>">次の問題</a></div>
+</div><!--.quest-->
 
-
-
-
-
-
-
-<?php echo $this->Form->error('Question.answer');?>
-<?php echo $this->Form->end('解答！') ;?>
-<?php echo $msg;?>
 <br>
 <br>
 <br>
-<a href="<?php echo $id-1; ?>">前の問題</a>
-<br>
-<br>
-<br>
-<a href="<?php echo $id+1; ?>">次の問題</a>
+
+
 
 </html>

@@ -63,6 +63,10 @@ class QuestionsController extends AppController{
 
         $this->set('msg', $msg);
 
+        $this->Question->getEnHint($id);
+
+
+
          //view指定
         $this->ext = '.html';
         $this->render('en_basic');

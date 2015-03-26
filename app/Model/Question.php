@@ -121,4 +121,34 @@ class Question extends AppModel{
             return $params;
         }
     }
+
+    /////////////////////
+    ////HINT関連/////////
+    ///////////////////
+
+    public function getEnHint($id){
+        //TODO ex: "□□! □□."　のようなヒントを表示
+        $enDivWords = explode(" ", $this->getEnglish($id));
+        var_dump($enDivWords);
+
+
+        for($i = 0; $i < count($enDivWords); $i++){
+            $this->checkMark($enDivWords[$i], $i);
+        }
+
+    }
+    public function checkMark($str, $num){
+        //TODO 分割した単語から! ? '. "がどこにあるかを吐く
+        $endMarks = array('?', '!', ".");
+        $otherMarks = array('"'); //TODO 「'」もいずれ入れる。
+        
+        for($i = 0; $i < count($endMarks); $i++) {
+            if(strpos($str, $endMarks[$i]) == true){
+                var_dump($num);
+                var_dump($endMarks[$i]);
+
+            }
+        }
+
+    }
 }
