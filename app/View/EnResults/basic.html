@@ -3,10 +3,20 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <?php echo $this->Html->script('d3.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('cal-heatmap.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('enBasicCalender.js', array( 'inline' => true));?>
+    <?php echo $this->Html->css( 'cal-heatmap.css');?>
+
+
+
+
+
 </head>
 <body>
 
+<div id="cal-heatmap"></div>
+<!--TODO　heatmapに渡すjson(date:unixtimestamp, value: kaisuu)http://kamisama.github.io/cal-heatmap/v2/#range-example-->
 
-<!--TODO GitHubのアクティビティカレンダー風表示「Cal-HeatMap」 http://www.moongift.jp/2013/08/20130817/ -->
 </body>
 </html>
