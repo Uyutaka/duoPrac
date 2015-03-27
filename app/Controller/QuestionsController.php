@@ -26,6 +26,8 @@ class QuestionsController extends AppController{
         $this->set('answer', $this->Question->getEnglish($id));
         $this->set('word_count', $this->Question->getWordCount($id));
         $this->set('id', $id);
+        $this->set('enHint', $this->Question->getEnHint($id, 0));
+
 
         $msg = null;
         //TODO modelに引っ越し
@@ -57,13 +59,13 @@ class QuestionsController extends AppController{
 
             $this->EnResult->save($data);
 
+
         }
 
 
 
         $this->set('msg', $msg);
 
-        $this->Question->getEnHint($id);
 
 
 

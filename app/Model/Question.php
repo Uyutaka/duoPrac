@@ -126,29 +126,36 @@ class Question extends AppModel{
     ////HINT関連/////////
     ///////////////////
 
-    public function getEnHint($id){
-        //TODO ex: "□□! □□."　のようなヒントを表示
+    public function getEnHint($id, $option){
         $enDivWords = explode(" ", $this->getEnglish($id));
-        var_dump($enDivWords);
 
+        switch ($option){
+            case 0:
+                for($i = 0; $i < count($enDivWords); $i++){
+                    $enHintArr[$i] = $this->createEnBasicHint($enDivWords[$i]);
+                }
+                $enHint = implode(' ', $enHintArr);
+                break;
 
-        for($i = 0; $i < count($enDivWords); $i++){
-            $this->checkMark($enDivWords[$i], $i);
         }
 
+        return $enHint;
     }
-    public function checkMark($str, $num){
-        //TODO 分割した単語から! ? '. "がどこにあるかを吐く
-        $endMarks = array('?', '!', ".");
-        $otherMarks = array('"'); //TODO 「'」もいずれ入れる。
-        
-        for($i = 0; $i < count($endMarks); $i++) {
-            if(strpos($str, $endMarks[$i]) == true){
-                var_dump($num);
-                var_dump($endMarks[$i]);
 
+
+    //param $文字列
+    //return 半角は□に　記号はそのままの文字列で返す ex: "□□! □□."　のようなヒントを表示
+    public function createEnBasicHint($str){
+        $strArr = str_split($str); //文字列を配列に
+        $hint = '';
+
+        for($i = 0; $i < count($strArr); $i++){
+            if(preg_match("/^[a-zA-Z0-9]+$/", $strArr[$i])){
+                $hint .= '□';
+            }else{
+                $hint .= $strArr[$i];
             }
         }
-
+        return $hint;
     }
 }

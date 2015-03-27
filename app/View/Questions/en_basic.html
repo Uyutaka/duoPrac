@@ -16,7 +16,10 @@
 
     <h3><?php echo($question);?></h3>
 
-    <?php echo ($answer); ?>
+    <?php echo 'HINT'; ?>
+    <br>
+    <?php echo ($enHint); ?>
+
 
     <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
     <?php echo $this->Form->input('Question.answer', array('required' => false));?>
