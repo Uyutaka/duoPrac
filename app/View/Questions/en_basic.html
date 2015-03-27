@@ -21,12 +21,15 @@
     <?php echo ($enHint); ?>
 
 
+
+
     <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
     <?php echo $this->Form->input('Question.answer', array('required' => false));?>
-        <!--required => false  にしないとブラウザのエラーがでる。-->
-
+    <!--required => false  にしないとブラウザのエラーがでる。-->
 
     <?php echo $this->Form->error('Question.answer');?>
+    <input type="button" value="答えを見る" onClick="javascript:displayAnswer(  <?php echo   '\'' . $answer.  ' \')"> '; ?>
+
 
     <?php
         echo '<div id="judge">';
@@ -34,8 +37,18 @@
         echo '</div>';
     ?>
 
+
+
     <?php echo $this->Form->end('解答する！') ;?>
+
 </div><!--.main-->
+
+
+
+
+
+
+
 
 
 

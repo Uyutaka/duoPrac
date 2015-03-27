@@ -12,6 +12,15 @@ jQuery(function ($) {
 
 
 
-    $("h2").css("color", "blue")
+    $("h2").css("color", "blue");
+    $("#QuestionEnBasicForm").css("margin", "0px auto");
+
+
 
 });
+
+var answer = '';
+function displayAnswer(answer){
+    //var answer = 'test';
+    alert(answer);
+}
