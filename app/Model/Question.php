@@ -24,7 +24,6 @@ class Question extends AppModel{
     );
 
 
-
     public $validate = array(
         'answer' => array(
             'wordCountRule' => array(
@@ -62,19 +61,9 @@ class Question extends AppModel{
 
     }
 
-    public function val_wordContents($postAnswer){
-        $postWords = explode(" ", $postAnswer['answer']);
-        for($i = 0; $i = count($postWords); $i++){
-//            if($postWords[$i])
-        }
-    }
-
-
-
 
     //正誤判定
     public function enBasic_checkWord($postAnswer){
-//        var_dump($postAnswer);
         $id = $this->getUrlParam(3);
         $correct = $this->getEnglish($id);
         if($postAnswer == $correct){
