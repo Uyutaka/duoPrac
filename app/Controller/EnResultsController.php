@@ -20,7 +20,6 @@ class EnResultsController extends AppController{
 
     public function basic(){
 
-//        $this->set('')
         $this->layout = ""; //defaultのスタイルを削除
 
         $this->EnResult->getResult('basic');
