@@ -27,13 +27,11 @@ class EnResultsController extends AppController{
         $this->render('basic');
     }
 
-    //heatmap用のJson
+
+    //cal-heatmap用のJson出力
     //param  \ $type => 問題のタイプ
     //return \ Json date: unixtimestamp, value: ??}
-
     public function tryNumJson($type = null){
-
-
         $jsonResult = $this->EnResult->getTryNumJson($type);
 
         //参考 [CakePHP2] json形式のデータを手軽に出力する

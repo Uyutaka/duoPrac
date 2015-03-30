@@ -16,13 +16,15 @@ class EnResult extends AppModel{
 
     }
 
+    //  param  :: Quest type
+    //  return :: EX array (size=126) 1427339834(unixTime) => int 10(value)
     public function getTryNumJson($type = null){
         $option = array('conditions' => array('EnResult.type' => $type),
             'field' => array('EnResult.date', 'EnResult.quest_id', 'EnResult.flag'));
         $allResults = $this->find('all', $option);
-
+        $jsonResult = array();
         for($i = 0; $i < count($allResults); $i++){
-            $jsonResult[$i] = ['date' => strtotime($allResults[$i]['EnResult']['date']), 'value' => 10];
+            $jsonResult += [strtotime($allResults[$i]['EnResult']['date']) => 10];
         }
         return $jsonResult;
     }
