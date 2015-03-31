@@ -11,4 +11,8 @@ CREATE TABLE en_results (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, type CHAR(2
 
 ## Screen shot
 
+###基本問題2(/Questions/enBasic/2)
 ![基本問題2](/ScreenShot/:Questions:enBasic:2.png)
+
+###例文一覧(/ExSentences)
+![例文一覧](/ScreenShot/ExSentences.png)

@@ -7,7 +7,7 @@
  */
 
 class ExSentencesController extends AppController {
-    
+
     public function index(){
         $this->set('ex_sentences', $this->ExSentence->find('all')); //$ex_sentences::view用変数, 取り出し操作
 
