@@ -7,15 +7,8 @@
  */
 
 class ExSentencesController extends AppController {
-
-
-//    public $helpers = array('Html', 'Form');
-
-
+    
     public function index(){
-
-
-
         $this->set('ex_sentences', $this->ExSentence->find('all')); //$ex_sentences::view用変数, 取り出し操作
 
         //view指定
@@ -25,13 +18,13 @@ class ExSentencesController extends AppController {
     }
 
     public function json(){
-
         $result = $this->ExSentence->find('all');
-        $items = json_encode($result);
+        $jsonResult = json_encode($result);
 
-        echo $items;
-        $this->ext = '.json';
-        $this->render('index');
+        //参考 [CakePHP2] json形式のデータを手軽に出力する
+        $this->viewClass = 'Json';
+        $this->set(compact('jsonResult'));
+        $this->set('_serialize', 'jsonResult');
     }
 
 }
