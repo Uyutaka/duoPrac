@@ -16,3 +16,7 @@ CREATE TABLE en_results (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, type CHAR(2
 
 ###例文一覧(/ExSentences)
 ![例文一覧](/ScreenShot/ExSentences.png)
+
+###基本問題の結果ページ(/EnResults/basic)
+![基本問題の結果ページ](/ScreenShot/EnResults.basic.png)
+

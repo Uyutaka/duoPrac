@@ -12,8 +12,18 @@ window.onload = function(){
 
     });
 }
+$(function() {
+    //$(".main").css("text-align","center");
+    $(".main").css("width", "100%");
+    $(".main").css("border", "1px solid #000");
 
-jQuery(function ($) {
+    $("#dates").css("color","red");
+    $("div .main").css("width", "80%");
+    $("div .main").css("border", "1px solid #FF0000");
+    $("div .main").css("margin", "0 auto");
+
 
 
 });
+
+

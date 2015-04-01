@@ -10,21 +10,34 @@ class EnResultsController extends AppController{
     public $scaffold;
 
     public function index(){
-
-        //view指定
         $this->ext = '.html';
         $this->render('index');
-
-
     }
 
-    public function basic(){
+    public function basic($date = null){
+        $this->autoLayout = false;
 
-        $this->layout = ""; //defaultのスタイルを削除
+        $dateArr = $this->EnResult->getDateArr('basic');
+//        var_dump($dateArr);
+        $this->set('dateArr', $dateArr);
 
-        $this->EnResult->getResult('basic');
-        $this->ext = '.html';
-        $this->render('basic');
+        for($i = 0; $i < count($dateArr); $i ++) {
+            $info[$i] = $this->EnResult->getIdQuestIdFlagArr($dateArr[$i], 'basic');
+        }
+        $this->set('info', $info);
+//        var_dump($info);
+
+
+
+
+
+            $this->ext = '.html';
+            $this->render('basic');
+
+
+
+
+
     }
 
 
