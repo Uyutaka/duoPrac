@@ -46,7 +46,6 @@ class EnResult extends AppModel{
             $result[$i]['id'] = $res=$findResult[$i]['EnResult']['id'];
             $result[$i]['quest_id'] = $findResult[$i]['EnResult']['quest_id'];
             $result[$i]['flag'] = $findResult[$i]['EnResult']['flag'];
-
         }
         return $result;
 
@@ -79,11 +78,16 @@ class EnResult extends AppModel{
         $option = array('conditions' => array('EnResult.type' => $type),
             'field' => array('EnResult.date', 'EnResult.quest_id', 'EnResult.flag'));
         $allResults = $this->find('all', $option);
+
         $jsonResult = array();
+        $valueArr = array();
         for($i = 0; $i < count($allResults); $i++){
-            $jsonResult += [strtotime($allResults[$i]['EnResult']['date']) => 1]; //TODO 1はheatmapの値 => EnResult.flagの値にする
+            $valueArr[$i] = $allResults[$i]['EnResult']['flag'] / 100;
+            $jsonResult += [strtotime($allResults[$i]['EnResult']['date']) => $valueArr[$i]];
         }
         return $jsonResult;
     }
+
+
 
 }

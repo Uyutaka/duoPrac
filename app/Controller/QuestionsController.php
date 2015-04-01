@@ -50,7 +50,7 @@ class QuestionsController extends AppController{
 
             if ($judge == true) {
 //                echo 'true';
-                $data += array('flag' => 1);
+                $data += array('flag' => 100);
                 $msg = '正解です！';
             }else{ //不正解の時
                 $data += array('flag' => 0);
