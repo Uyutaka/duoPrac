@@ -20,7 +20,8 @@ class QuestionsController extends AppController{
         $this->render('index');
     }
 
-    public function enBasic($id){
+    public function enBasic($id = null){
+
 
         $this->set('question', $this->Question->getJapanese($id));
         $this->set('answer', $this->Question->getEnglish($id));

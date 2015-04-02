@@ -28,7 +28,11 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+
+//	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/', array('controller' => 'TopPages', 'action' => 'index'));
+// 参考 http://cakephp.popotoo.com/other/40/
+
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

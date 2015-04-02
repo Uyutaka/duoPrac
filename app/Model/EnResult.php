@@ -73,7 +73,7 @@ class EnResult extends AppModel{
 
 
     //  param  :: Quest type
-    //  return :: EX array (size=126) 1427339834(unixTime) => int 10(value)
+    //  return :: EX array (size=126) 1427339834(unixTime) =>  0〜1(EnResult.flag / 100)
     public function getTryNumJson($type = null){
         $option = array('conditions' => array('EnResult.type' => $type),
             'field' => array('EnResult.date', 'EnResult.quest_id', 'EnResult.flag'));

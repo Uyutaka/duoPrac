@@ -22,8 +22,6 @@ $(function() {
     $("div .main").css("border", "1px solid #FF0000");
     $("div .main").css("margin", "0 auto");
 
-
-
 });
 
 
