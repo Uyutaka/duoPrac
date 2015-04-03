@@ -22,7 +22,7 @@ class EnResultsController extends AppController{
         $this->set('dateArr', $dateArr);
 
         for($i = 0; $i < count($dateArr); $i ++) {
-            $info[$i] = $this->EnResult->getIdQuestIdFlagArr($dateArr[$i], 'basic');
+            $info[$i] = $this->EnResult->getIdQuestIdScoreArr($dateArr[$i], 'basic');
         }
         $this->set('info', $info);
 //        var_dump($info);
