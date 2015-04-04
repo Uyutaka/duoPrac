@@ -63,6 +63,8 @@ class Question extends AppModel{
 
 
     //正誤判定
+    //param $postAnswer postした文字列
+    //return 正解かどうか
     public function enBasic_checkWord($postAnswer){
         $id = $this->getUrlParam(3);
         $correct = $this->getEnglish($id);
@@ -72,6 +74,32 @@ class Question extends AppModel{
             return false;
         }
     }
+    //スコアを判定
+    //param $id=>問題のID $postAnswer=>postデータ
+    //return $score　
+    //正解の例文の単語（. ! ?を含む）と postデータを比べて同じものをカウント
+    //score = 正解単語数/総単語数 * 100
+    public function getScore($id, $postAnswer){
+        $postEnWords = explode(" ", $postAnswer);
+        $correctEnWords = explode(" ", $this->getEnglish($id));
+
+        $totalWords = $this->getWordCount($id); //解答の単語数
+        $correctWords = 0; //正解した単語数
+
+
+
+        $result = array_intersect_key($postEnWords, $correctEnWords);
+        var_dump($result); //ここまで
+
+//        $score = ($correctWords / $totalWords) * 100;
+//        var_dump($correctWords);
+//        var_dump($totalWords);
+//        return $score;
+    }
+
+
+
+
 
     ////////////////////
     //EnInfosから情報取得

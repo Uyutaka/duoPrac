@@ -32,14 +32,16 @@ class QuestionsController extends AppController{
 
         $msg = null;
         //TODO modelに引っ越し
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) { //解答する！のボタンを押した時
             $judge = null;
             $this->Question->set($this->request->data);
             $this->Question->validates();
 
-            if ($this->request->data['Question']['answer']) {
+            if ($this->request->data['Question']['answer']) { //postデータがあるとき
                 $postAnswer = $this->request->data['Question']['answer'];
                 $judge = $this->Question->enBasic_checkWord($postAnswer);
+                $score = $this->Question->getScore($id, $postAnswer);
+
             }
 
             $now = date("Y/m/d H:i:s", time());
@@ -49,8 +51,28 @@ class QuestionsController extends AppController{
                 'date' => $now,
             );
 
+
+
+//            switch($score){
+//                case 0:
+//                    $data += array('score' => $score);
+//                    $msg = $score.'点　一つも正解はありません！';
+//                    break;
+//                case 100:
+//                    $data += array('score' => $score);
+//                    $msg = '全問正解！　満点！';
+//                    break;
+//
+//                default:
+//                    $data += array('score' => $score);
+//                    $msg = $score.'点です！';
+//                    break;
+//
+//            }
+
+
+
             if ($judge == true) {
-//                echo 'true';
                 $data += array('score' => 100);
                 $msg = '正解です！';
             }else{ //不正解の時
