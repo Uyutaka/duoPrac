@@ -42,47 +42,28 @@ class QuestionsController extends AppController{
                 $judge = $this->Question->enBasic_checkWord($postAnswer);
                 $score = $this->Question->getScore($id, $postAnswer);
 
+
+                $now = date("Y/m/d H:i:s", time());
+                $data = array(
+                    'type' => 'basic',
+                    'quest_id' => $id,
+                    'date' => $now,
+                    'score' => $score
+                );
+
+
+                if ($judge == true) {
+                    $msg = '正解です！';
+                }else{ //不正解の時
+                    $msg = '不正解('.$score.'点)です！';
+                }
+
+                $this->EnResult->save($data);
+
+
+            }else{
+                $msg = '入力してください';
             }
-
-            $now = date("Y/m/d H:i:s", time());
-            $data = array(
-                'type' => 'basic',
-                'quest_id' => $id,
-                'date' => $now,
-            );
-
-
-
-//            switch($score){
-//                case 0:
-//                    $data += array('score' => $score);
-//                    $msg = $score.'点　一つも正解はありません！';
-//                    break;
-//                case 100:
-//                    $data += array('score' => $score);
-//                    $msg = '全問正解！　満点！';
-//                    break;
-//
-//                default:
-//                    $data += array('score' => $score);
-//                    $msg = $score.'点です！';
-//                    break;
-//
-//            }
-
-
-
-            if ($judge == true) {
-                $data += array('score' => 100);
-                $msg = '正解です！';
-            }else{ //不正解の時
-                $data += array('score' => 0);
-                $msg = '不正解です！';
-            }
-
-            $this->EnResult->save($data);
-
-
         }
 
 

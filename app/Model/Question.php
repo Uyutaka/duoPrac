@@ -83,18 +83,25 @@ class Question extends AppModel{
         $postEnWords = explode(" ", $postAnswer);
         $correctEnWords = explode(" ", $this->getEnglish($id));
 
-        $totalWords = $this->getWordCount($id); //解答の単語数
-        $correctWords = 0; //正解した単語数
+
+//        var_dump('正解');
+//        var_dump($correctEnWords);
+//        var_dump('ポストされた単語');
+//        var_dump($postEnWords);
 
 
-
-        $result = array_intersect_key($postEnWords, $correctEnWords);
-        var_dump($result); //ここまで
-
-//        $score = ($correctWords / $totalWords) * 100;
-//        var_dump($correctWords);
-//        var_dump($totalWords);
-//        return $score;
+        $correctCount = 0;
+        if(count($correctEnWords) >= count($postEnWords)){
+            for($i = 0; $i < count($postEnWords); $i ++){
+                if($correctEnWords[$i] == $postEnWords[$i]){
+                    $correctCount += 1;
+                }
+            }
+            $score = $correctCount / $this->getWordCount($id) * 100;
+        }else{
+            $score = 0;
+        }
+        return $score;
     }
 
 
