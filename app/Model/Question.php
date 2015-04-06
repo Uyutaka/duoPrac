@@ -84,11 +84,6 @@ class Question extends AppModel{
         $correctEnWords = explode(" ", $this->getEnglish($id));
 
 
-//        var_dump('正解');
-//        var_dump($correctEnWords);
-//        var_dump('ポストされた単語');
-//        var_dump($postEnWords);
-
 
         $correctCount = 0;
         if(count($correctEnWords) >= count($postEnWords)){
@@ -116,7 +111,6 @@ class Question extends AppModel{
             'conditions' =>array('EnInfo.id' => $id)
         );
         $word_count = $this->find('all', $wordCountOption);
-
         return (int)$word_count[0]['EnInfo']['word_count'];
     }
 

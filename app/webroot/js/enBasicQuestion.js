@@ -13,7 +13,17 @@ jQuery(function ($) {
 
 });
 
-var answer = '';
-function displayAnswer(answer){
-    alert(answer);
-}
+$(document).ready(function(){
+    $(".answerContent").hide();
+    var flg = "close";
+    $(".showAnswerBtn").click(function(){
+        $(".answerContent").slideToggle();
+        if(flg == "close"){
+            $(this).text("答えを閉じる");
+            flg = "open";
+        }else{
+            $(this).text("答えを表示");
+            flg = "close";
+        }
+    });
+});

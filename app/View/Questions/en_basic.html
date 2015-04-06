@@ -28,7 +28,12 @@
     <!--required => false  にしないとブラウザのエラーがでる。-->
 
     <?php echo $this->Form->error('Question.answer');?>
-    <input type="button" value="答えを見る" onClick="javascript:displayAnswer(  <?php echo   '\'' . $answer.  ' \')"> '; ?>
+
+
+    <p class="showAnswerBtn">答えを表示</p>
+    <div class="answerContent">
+        <?php echo $answer;?>
+    </div>
 
 
     <?php
