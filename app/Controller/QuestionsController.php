@@ -55,7 +55,8 @@ class QuestionsController extends AppController{
                 if ($judge == true) {
                     $msg = '正解です！';
                 }else{ //不正解の時
-                    $msg = '不正解('.$score.'点)です！';
+                    $incorrectMsg = $this->Question->getIncorrectMsg($id, $postAnswer);
+                    $msg = '不正解('.$score.'点)です！'."<br>".$incorrectMsg;
                 }
 
                 $this->EnResult->save($data);

@@ -100,6 +100,21 @@ class Question extends AppModel{
     }
 
 
+    public function getIncorrectMsg($id, $postAnswer){
+        $postEnWords = explode(" ", $postAnswer);
+        $correctEnWords = explode(" ", $this->getEnglish($id));
+        $incorrectMsgArr = explode(" ", $this->getEnHint($id, 0));
+        if(count($correctEnWords) >= count($postEnWords)){ //POSTの単語数が答え以下の時
+            for($i = 0; $i < count($postEnWords); $i ++){
+                if($correctEnWords[$i] == $postEnWords[$i]){
+                    $incorrectMsgArr[$i] = $correctEnWords[$i];
+                }
+            }
+        }
+        return implode(" ", $incorrectMsgArr);
+    }
+
+
 
 
 
