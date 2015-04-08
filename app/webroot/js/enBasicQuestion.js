@@ -26,4 +26,21 @@ $(document).ready(function(){
             flg = "close";
         }
     });
+
+
+    $(".hintContent").hide();
+    var flg = "close";
+    $(".showHintBtn").click(function(){
+        $(".hintContent").slideToggle();
+        if(flg == "close"){
+            $(this).text("HINT閉じる");
+            flg = "open";
+        }else{
+            $(this).text("HINT表示");
+            flg = "close";
+        }
+    });
+
+
+
 });
