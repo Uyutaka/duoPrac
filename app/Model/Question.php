@@ -86,14 +86,14 @@ class Question extends AppModel{
 
 
         $correctCount = 0;
-        if(count($correctEnWords) >= count($postEnWords)){
+        if(count($correctEnWords) >= count($postEnWords)){ //POSTの単語数が答え以下の時
             for($i = 0; $i < count($postEnWords); $i ++){
                 if($correctEnWords[$i] == $postEnWords[$i]){
                     $correctCount += 1;
                 }
             }
             $score = $correctCount / $this->getWordCount($id) * 100;
-        }else{
+        }else{ //POSTの単語数が答え以上の時
             $score = 0;
         }
         return $score;
@@ -113,6 +113,30 @@ class Question extends AppModel{
         }
         return implode(" ", $incorrectMsgArr);
     }
+
+    public function getIncorrectWords($id, $postAnswer){
+
+
+        $postEnWords = explode(" ", $postAnswer);
+        $correctEnWords = explode(" ", $this->getEnglish($id));
+
+
+
+        $incorrectWordsArr = array();
+        if(count($correctEnWords) >= count($postEnWords)){ //POSTの単語数が答え以下の時
+            for($i = 0; $i < count($correctEnWords); $i ++){
+                if($postEnWords[$i]  !== $correctEnWords[$i]){
+                    array_push($incorrectWordsArr, $correctEnWords[$i]);
+                }
+            }
+
+        }else{ //POSTの単語数が答え以上の時
+            $incorrectWordsArr = $correctEnWords;
+        }
+        return implode(",", $incorrectWordsArr);
+    }
+
+
 
 
 

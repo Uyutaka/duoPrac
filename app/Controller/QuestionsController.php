@@ -57,6 +57,7 @@ class QuestionsController extends AppController{
                 }else{ //不正解の時
                     $incorrectMsg = $this->Question->getIncorrectMsg($id, $postAnswer);
                     $msg = '不正解('.$score.'点)です！'."<br>".$incorrectMsg;
+                    $data += array('incorrect_words' => $this->Question->getIncorrectWords($id, $postAnswer));
                 }
 
                 $this->EnResult->save($data);
