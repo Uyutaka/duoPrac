@@ -27,39 +27,31 @@ class Question extends AppModel{
     public $validate = array(
         'answer' => array(
             'wordCountRule' => array(
-                'rule' => array('val_postWord',1),
-                'message' => '単語数が異なるります。'
-            ),
-            'contailsRule' => array(
-                'rule' => array('val_postWord',2),
-                'message' => '半角英数字で入力してください。'
+                'rule' => array('val_postWord'),
+                'message' => '単語数が多いです。'
             )
         )
     );
 
 
-    public function val_postWord($postAnswer, $check){
+    public function val_postWord($postAnswer){
         $postWords = explode(" ", $postAnswer['answer']);
 
         $id = $this->getUrlParam(3); //urlの三番目の値　改良したい。。
 
-        switch($check){
 
-            case 1: //単語数の判定
-                if (count($postWords) == $this->getWordCount($id)) {
+                if (count($postWords) <= $this->getWordCount($id)) {
                     return true;
-                    break;
+
                 } else {
                     return false;
-                    break;
+
                 }
 
-            case 2: // TODO 半角英数字の判定
-                return true;
-                break;
-        }
 
     }
+
+
 
 
     //正誤判定

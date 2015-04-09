@@ -30,14 +30,15 @@ class QuestionsController extends AppController{
         $this->set('enHint', $this->Question->getEnHint($id, 0));
 
 
+
         $msg = null;
         //TODO modelに引っ越し
         if ($this->request->is('post')) { //解答する！のボタンを押した時
             $judge = null;
             $this->Question->set($this->request->data);
-            $this->Question->validates();
+//            $this->Question->validates();
 
-            if ($this->request->data['Question']['answer']) { //postデータがあるとき
+            if ($this->request->data['Question']['answer'] && $this->Question->validates() == ture) { //postデータがあるとき
                 $postAnswer = $this->request->data['Question']['answer'];
                 $judge = $this->Question->enBasic_checkWord($postAnswer);
                 $score = $this->Question->getScore($id, $postAnswer);
@@ -64,18 +65,20 @@ class QuestionsController extends AppController{
 
 
             }else{
-                $msg = '入力してください';
+                $msg = '';
             }
+
         }
-
-
-
         $this->set('msg', $msg);
 
 
 
 
-         //view指定
+
+
+
+
+        //view指定
         $this->ext = '.html';
         $this->render('en_basic');
 
