@@ -42,5 +42,14 @@ $(document).ready(function(){
     });
 
 
+    $("#listenBtn").click(function(){
+        var url = 'http://tts-api.com/tts.mp3?q=';
+        url += encodeURI($(".answerContent").text());
+        console.log(url);
+        new Audio(url).play();
+
+    });
+
+    
 
 });
