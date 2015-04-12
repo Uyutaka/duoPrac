@@ -9,6 +9,7 @@
 /dist
 /tags
 *.mo
+.htaccess
 
 # IDE and editor specific files #
 #################################
