@@ -15,7 +15,7 @@ class EnResultsController extends AppController{
     }
 
     public function basic($date = null){
-        $this->autoLayout = false;
+//        $this->autoLayout = false;
 
         $dateArr = $this->EnResult->getDateArr('basic');
 //        var_dump($dateArr);

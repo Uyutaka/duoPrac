@@ -8,7 +8,6 @@
 
 class TopPagesController extends AppController{
     public function index(){
-        $this->autoLayout = false;
         $this->ext = '.html';
         $this->render('index');
     }

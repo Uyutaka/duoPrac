@@ -15,12 +15,14 @@ class QuestionsController extends AppController{
     public $uses = array('Question', 'EnResult');
 
     public function index(){
+
         //view指定
         $this->ext = '.html';
         $this->render('index');
     }
 
     public function enBasic($id = null){
+
 
 
         $this->set('question', $this->Question->getJapanese($id));
