@@ -3,7 +3,7 @@ window.onload = function(){
 
     var cal = new CalHeatMap();
     cal.init({
-        data: "http://duoprac/EnResults/tryNumJson/basic",
+        data: "./tryNumJson/basic",
         dataType: "json",
         start: new Date(2015, 2),
         domain: "month",
