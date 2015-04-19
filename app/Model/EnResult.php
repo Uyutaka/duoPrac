@@ -75,5 +75,42 @@ class EnResult extends AppModel{
     }
 
 
+    //  param  :: Quest type
+    //  return ::
+    public function getTrySumJson($type = null){
+        $option = array('conditions' => array('EnResult.type' => $type),
+            'field' => array('EnResult.date', 'EnResult.quest_id', 'EnResult.score'));
+        $allResults = $this->find('all', $option);
+
+
+        $dateArr = array();
+        $scoreArr = array();
+        for($i = 0; $i < count($allResults); $i ++){
+            $dateArr[$i] = date('Y/m/d', strtotime($allResults[$i]['EnResult']['date']));
+            $scoreArr[$i] = $allResults[$i]['EnResult']['score'];
+        }
+
+        $dateCountArr = array_count_values($dateArr);
+
+        $keyArr = array();
+        $countArr = array();
+        foreach($dateCountArr as $key => $value){
+            array_push($keyArr, $key);
+            array_push($countArr, $value);
+        }
+
+        for($i = 0; $i <count($countArr); $i ++){
+            if($i !== 0){
+                $countArr[$i] = $countArr[$i - 1] + $countArr[$i];
+            }
+
+            $keyArr[$i] = str_replace('/', '-', $keyArr[$i]);
+            $jsonResult[$i] = [$keyArr[$i] => $countArr[$i]];
+
+        }
+        return $jsonResult;
+    }
+
+
 
 }

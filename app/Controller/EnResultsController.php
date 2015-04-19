@@ -52,4 +52,14 @@ class EnResultsController extends AppController{
         $this->set(compact('jsonResult'));
         $this->set('_serialize', 'jsonResult');
     }
+
+    public function trySumJson($type = null){
+        $jsonResult = $this->EnResult->getTrySumJson($type);
+
+        //参考 [CakePHP2] json形式のデータを手軽に出力する
+        $this->viewClass = 'Json';
+        $this->set(compact('jsonResult'));
+        $this->set('_serialize', 'jsonResult');
+    }
+
 }
