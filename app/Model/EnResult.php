@@ -105,7 +105,8 @@ class EnResult extends AppModel{
             }
 
             $keyArr[$i] = str_replace('/', '-', $keyArr[$i]);
-            $jsonResult[$i] = [$keyArr[$i] => $countArr[$i]];
+            $jsonResult[$i]['date'] = $keyArr[$i];
+            $jsonResult[$i]['value'] = $countArr[$i];
 
         }
         return $jsonResult;

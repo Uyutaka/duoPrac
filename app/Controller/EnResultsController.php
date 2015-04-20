@@ -25,14 +25,14 @@ class EnResultsController extends AppController{
             $info[$i] = $this->EnResult->getIdQuestIdScoreArr($dateArr[$i], 'basic');
         }
         $this->set('info', $info);
-//        var_dump($info);
 
 
 
 
 
-            $this->ext = '.html';
-            $this->render('basic');
+
+        $this->ext = '.html';
+        $this->render('basic');
 
 
 
