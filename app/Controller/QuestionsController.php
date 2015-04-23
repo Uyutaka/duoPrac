@@ -73,17 +73,18 @@ class QuestionsController extends AppController{
         }
         $this->set('msg', $msg);
 
-
-
-
-
-
-
-
         //view指定
         $this->ext = '.html';
         $this->render('en_basic');
+    }
+
+    public function enRearrange($id = null){
 
 
+
+        //
+        // Viewへ
+        $this->ext = '.html';
+        $this->render('en_rearrange');
     }
 }
