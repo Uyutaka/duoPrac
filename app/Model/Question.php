@@ -234,13 +234,13 @@ class Question extends AppModel{
                 }
                 $enHint = implode(' ', $enHintArr);
                 break;
-            case 1:
-                var_dump($enDivWords);
+            case 1: //enRearrange
 
                 for($i = 0; $i < count($enDivWords); $i++) {
-                    $this->createEnRearrangeHint($enDivWords[$i]);
+                    $enHintArr[$i] = $this->createEnRearrangeHint($enDivWords[$i]);
                 }
-                $this->createEnRearrangeHint('!@#abcdefg');
+                $enHint = implode(' ', $enHintArr);
+
                 break;
 
         }
@@ -257,16 +257,39 @@ class Question extends AppModel{
 
         for($i = 0; $i < count($strArr); $i++){
             if(preg_match("/^[a-zA-Z0-9]+$/", $strArr[$i])){
-                $hint .= '□';
+                $hint .= '*';
             }else{
                 $hint .= $strArr[$i];
             }
         }
         return $hint;
     }
+
+    //78 　　8☓["Natto"]
     public function createEnRearrangeHint($str){
         $hint = $this->createEnBasicHint($str);
-        
+        $hintArr = str_split($hint);
+
+        if(count(array_unique($hintArr)) == 1){
+            //記号入っていない
+            $hint = '*';
+        }
+        elseif(strpos($hint , "*'*") == true){
+            //省略形を*に変換
+            $hint = str_replace("*'*", '*', $hint);
+        }else{
+            //重複している*を一つにまとめる(例：　'**? => '*?)
+            $doubleArr = array();
+            for($i = 0; $i < count($hintArr); $i++){
+                if($hintArr[$i] == '*'){
+                    array_push($doubleArr, $i);
+                }
+            }
+            for($i = 1; $i < count($doubleArr); $i++) {
+                unset($hintArr[$doubleArr[$i]]);
+            }
+            $hint = implode('', $hintArr);
+        }
         return $hint;
     }
 }

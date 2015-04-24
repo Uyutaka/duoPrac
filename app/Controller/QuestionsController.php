@@ -84,15 +84,15 @@ class QuestionsController extends AppController{
         $this->set('answer', $this->Question->getEnglish($id));
         $this->set('word_count', $this->Question->getWordCount($id));
         $this->set('id', $id);
-        $this->set('enHint', $this->Question->getEnHint($id, 0));
-        $this->Question->getEnHint($id, 1);
+        $this->set('enHint', $this->Question->getEnHint($id, 1));
+        $this->set('question', $this->Question->getJapanese($id));
+        $this->set('answer', $this->Question->getEnglish($id));
 
 
         $enWordsArr = $this->Question->getEnWordsArr($id);
         shuffle($enWordsArr);
         $this->set('shuffleWords', $enWordsArr);
 
-        //
         // Viewへ
         $this->ext = '.html';
         $this->render('en_rearrange');
