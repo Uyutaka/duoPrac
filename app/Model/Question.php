@@ -171,19 +171,76 @@ class Question extends AppModel{
         }
     }
 
+
+
+    //英文を単語に分け、配列で返す。
+    //記号(.' " ,など)は消す
+    //
+    public function getEnWordsArr($id){
+        $divEnWords = explode(' ', $this->getEnglish($id));
+
+        // 分けた単語に記号含まれていたら要素番号を$containSignArrに代入
+        $containSignArr = array();//省略も含む
+        for($i = 0; $i < count($divEnWords); $i++){
+            if(preg_match('/^[a-zA-Z0-9]+$/', $divEnWords[$i])){
+            }else{
+                array_push($containSignArr, $i);
+            }
+        }
+
+        for($i = 0; $i < count($containSignArr); $i++){
+            $startStr = $divEnWords[$containSignArr[$i]][0];
+            $lastStr = $divEnWords[$containSignArr[$i]][strlen($divEnWords[$containSignArr[$i]]) - 1];
+
+            //単語の最初に記号あった場合なくなるまで削除
+            while(1) {
+                if (!preg_match('/^[a-zA-Z0-9]+$/', $startStr)) {
+                    $divEnWords[$containSignArr[$i]] = str_replace($startStr, '', $divEnWords[$containSignArr[$i]]);
+                    $startStr = $divEnWords[$containSignArr[$i]][0];
+                } else {
+                    break;
+                }
+            }
+
+            //単語の最後に記号があった場合なくなるまで削除
+            while(1) {
+                if (!preg_match('/^[a-zA-Z0-9]+$/', $lastStr)) {
+                    $divEnWords[$containSignArr[$i]] = str_replace($lastStr, '', $divEnWords[$containSignArr[$i]]);
+                    $lastStr = $divEnWords[$containSignArr[$i]][strlen($divEnWords[$containSignArr[$i]]) - 1];
+                } else {
+                    break;
+                }
+            }
+        }
+        return $divEnWords;
+    }
+
+
+
+
+
     /////////////////////
     ////HINT関連/////////
     ///////////////////
 
     public function getEnHint($id, $option){
         $enDivWords = explode(" ", $this->getEnglish($id));
+        $enHint = array();
 
         switch ($option){
-            case 0:
+            case 0: //enBasic
                 for($i = 0; $i < count($enDivWords); $i++){
                     $enHintArr[$i] = $this->createEnBasicHint($enDivWords[$i]);
                 }
                 $enHint = implode(' ', $enHintArr);
+                break;
+            case 1:
+                var_dump($enDivWords);
+
+                for($i = 0; $i < count($enDivWords); $i++) {
+                    $this->createEnRearrangeHint($enDivWords[$i]);
+                }
+                $this->createEnRearrangeHint('!@#abcdefg');
                 break;
 
         }
@@ -205,6 +262,11 @@ class Question extends AppModel{
                 $hint .= $strArr[$i];
             }
         }
+        return $hint;
+    }
+    public function createEnRearrangeHint($str){
+        $hint = $this->createEnBasicHint($str);
+        
         return $hint;
     }
 }

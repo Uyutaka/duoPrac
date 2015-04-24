@@ -80,7 +80,17 @@ class QuestionsController extends AppController{
 
     public function enRearrange($id = null){
 
+        $this->set('question', $this->Question->getJapanese($id));
+        $this->set('answer', $this->Question->getEnglish($id));
+        $this->set('word_count', $this->Question->getWordCount($id));
+        $this->set('id', $id);
+        $this->set('enHint', $this->Question->getEnHint($id, 0));
+        $this->Question->getEnHint($id, 1);
 
+
+        $enWordsArr = $this->Question->getEnWordsArr($id);
+        shuffle($enWordsArr);
+        $this->set('shuffleWords', $enWordsArr);
 
         //
         // Viewへ
