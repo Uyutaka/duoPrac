@@ -38,9 +38,8 @@ class QuestionsController extends AppController{
         if ($this->request->is('post')) { //解答する！のボタンを押した時
             $judge = null;
             $this->Question->set($this->request->data);
-//            $this->Question->validates();
 
-            if ($this->request->data['Question']['answer'] && $this->Question->validates() == ture) { //postデータがあるとき
+            if ($this->Question->validates(array('fieldList' => array('answer')))) { //validate通った時
                 $postAnswer = $this->request->data['Question']['answer'];
                 $judge = $this->Question->enBasic_checkWord($postAnswer);
                 $score = $this->Question->getScore($id, $postAnswer);
@@ -91,7 +90,23 @@ class QuestionsController extends AppController{
 
         $enWordsArr = $this->Question->getEnWordsArr($id);
         shuffle($enWordsArr);
+
         $this->set('shuffleWords', $enWordsArr);
+
+
+        if ($this->request->is('post')) { //解答する！のボタンを押した時
+            var_dump('push btn');
+            $this->Question->set($this->request->data);
+            if ($this->Question->validates(array('fieldList' => array('rearrangeAnswer')))) { //validate通った時
+                var_dump($this->request->data['Question']['rearrangeAnswer']);
+                //postをチェック
+                $postAnswer = $this->request->data['Question']['rearrangeAnswer'];
+
+
+                $this->Question->enRearrange_checkWord($postAnswer, $enWordsArr, $id);
+
+            }
+        }
 
         // Viewへ
         $this->ext = '.html';

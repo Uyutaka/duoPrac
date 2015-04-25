@@ -30,31 +30,60 @@ class Question extends AppModel{
                 'rule' => array('val_postWord'),
                 'message' => '単語数が多いです。'
             )
+        ),
+        'rearrangeAnswer' => array(
+            'wordCountRule' => array(
+                'rule' => array('val_rearrange'),
+                'message' => '重複なく全ての数字を使って答えてください。'
+            )
         )
     );
 
 
-    public function val_postWord($postAnswer){
-        $postWords = explode(" ", $postAnswer['answer']);
+    //独自のval関数
+    //引数はpostされた文字列
+    public function val_postWord($post){
+        $postWords = explode(" ", $post['answer']);
 
         $id = $this->getUrlParam(3); //urlの三番目の値　改良したい。。
 
+        if (count($postWords) <= $this->getWordCount($id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-                if (count($postWords) <= $this->getWordCount($id)) {
-                    return true;
+    public function val_rearrange($post){
+        var_dump($post);
+        $id = $this->getUrlParam(3); //urlの三番目の値　改良したい。。
 
-                } else {
-                    return false;
+        $postArr = explode(' ', $post['rearrangeAnswer']);
 
-                }
+        $isPostCount = false;
+        //文字数の判定
+        if(count($postArr) == count($this->getEnWordsArr($id))){
+            $isPostCount = true;
+        }else{
+            return false;
+        }
 
-
+        //postされた文字の数が選択肢と一致した場合
+        if($isPostCount){
+            $postStr = implode('', $postArr);
+            //連結した文字列が数字かどうか
+            if(preg_match('/^[0-9]+$/', $postStr)){
+                var_dump('all number');
+                return true;
+            }
+            return false;
+        }
     }
 
 
 
 
-    //正誤判定
+    //正誤判定(validate後)
     //param $postAnswer postした文字列
     //return 正解かどうか
     public function enBasic_checkWord($postAnswer){
@@ -66,6 +95,18 @@ class Question extends AppModel{
             return false;
         }
     }
+
+    public function enRearrange_checkWord($postAnswer, $shuffledArr, $id){
+        var_dump('postAnswer');
+        var_dump($postAnswer);
+
+
+        //選択肢の数字を使っているか？
+        //答えの順番があっているか？
+        
+
+
+    }
     //スコアを判定
     //param $id=>問題のID $postAnswer=>postデータ
     //return $score　
@@ -74,8 +115,6 @@ class Question extends AppModel{
     public function getScore($id, $postAnswer){
         $postEnWords = explode(" ", $postAnswer);
         $correctEnWords = explode(" ", $this->getEnglish($id));
-
-
 
         $correctCount = 0;
         if(count($correctEnWords) >= count($postEnWords)){ //POSTの単語数が答え以下の時
@@ -240,9 +279,7 @@ class Question extends AppModel{
                     $enHintArr[$i] = $this->createEnRearrangeHint($enDivWords[$i]);
                 }
                 $enHint = implode(' ', $enHintArr);
-
                 break;
-
         }
 
         return $enHint;

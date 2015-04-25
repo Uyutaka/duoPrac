@@ -2,3 +2,10 @@
 <?php var_dump($shuffleWords);?>
 <?php var_dump($answer);?>
 <?php var_dump($enHint);?>
+
+
+<?php echo $this->Form->create('Question', array('type' => 'post')); ?>
+<?php echo $this->Form->input('Question.rearrangeAnswer', array('required' => false));?>
+<!--required => false  にしないとブラウザのエラーがでる。-->
+<?php echo $this->Form->error('Question.rearrangeAnswer');?>
+<?php echo $this->Form->end('解答する！') ;?>
