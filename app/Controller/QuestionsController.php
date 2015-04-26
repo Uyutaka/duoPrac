@@ -10,6 +10,8 @@ class QuestionsController extends AppController{
 
 
     public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('Session');
+
 
     //使うモデルを選択
     public $uses = array('Question', 'EnResult');
@@ -88,25 +90,65 @@ class QuestionsController extends AppController{
         $this->set('answer', $this->Question->getEnglish($id));
 
 
-        $enWordsArr = $this->Question->getEnWordsArr($id);
-        shuffle($enWordsArr);
 
-        $this->set('shuffleWords', $enWordsArr);
+        $enWordsArr = $this->Question->getEnWordsArr($id);
+
+
+
+
+
+
+
 
 
         if ($this->request->is('post')) { //解答する！のボタンを押した時
-            var_dump('push btn');
             $this->Question->set($this->request->data);
             if ($this->Question->validates(array('fieldList' => array('rearrangeAnswer')))) { //validate通った時
-                var_dump($this->request->data['Question']['rearrangeAnswer']);
+
+                $shuffledWordArr = $this->Session->read('shuffledWordArr');
+
+
                 //postをチェック
                 $postAnswer = $this->request->data['Question']['rearrangeAnswer'];
 
 
-                $this->Question->enRearrange_checkWord($postAnswer, $enWordsArr, $id);
+                $isCorrect = $this->Question->enRearrange_checkWord($postAnswer, $shuffledWordArr, $id);
+                $this->set('isCorrect', $isCorrect);
+
+                $this->set('shuffleWords', $shuffledWordArr);
+
+                $score = $this->Question->getRearrangeScore($postAnswer, $shuffledWordArr, $id);
+                $this->set('score', $score);
+
+
+                //記録をINSERT
+                $now = date("Y/m/d H:i:s", time());
+                $data = array(
+                    'type' => 'enRearrange',
+                    'quest_id' => $id,
+                    'date' => $now,
+                    'score' => $score,
+                    'incorrect_words' => $this->Question->getRearrangeIncorrectWords($postAnswer, $shuffledWordArr, $id)
+                );
+
+                var_dump($data);
+
+                $this->EnResult->save($data);
+
+
+
 
             }
+        }else{
+            shuffle($enWordsArr);
+            $this->Session->write('shuffledWordArr', $enWordsArr);
+            $this->set('shuffleWords', $enWordsArr);
+
+
+
         }
+
+
 
         // Viewへ
         $this->ext = '.html';

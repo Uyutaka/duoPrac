@@ -55,7 +55,6 @@ class Question extends AppModel{
     }
 
     public function val_rearrange($post){
-        var_dump($post);
         $id = $this->getUrlParam(3); //urlの三番目の値　改良したい。。
 
         $postArr = explode(' ', $post['rearrangeAnswer']);
@@ -73,7 +72,6 @@ class Question extends AppModel{
             $postStr = implode('', $postArr);
             //連結した文字列が数字かどうか
             if(preg_match('/^[0-9]+$/', $postStr)){
-                var_dump('all number');
                 return true;
             }
             return false;
@@ -97,16 +95,58 @@ class Question extends AppModel{
     }
 
     public function enRearrange_checkWord($postAnswer, $shuffledArr, $id){
-        var_dump('postAnswer');
-        var_dump($postAnswer);
+
+        $postedWordArr = $this->getPostedWord_enRearrange($postAnswer, $shuffledArr, $id);
 
 
-        //選択肢の数字を使っているか？
-        //答えの順番があっているか？
-        
+        $isCorrect = false;
 
+        if($postedWordArr){
+            $correctWordsArr = $this->getEnWordsArr($id);
 
+            $correctCount = 0;
+            for($i = 0; $i < count($correctWordsArr); $i++){
+                if($postedWordArr[$i] == $correctWordsArr[$i]){
+                    $correctCount += 1;
+                }
+            }
+            if($correctCount == count($correctWordsArr)){
+                $isCorrect = true;
+            }else{
+                $isCorrect = false;
+            }
+        }else{
+            $isCorrect = false;
+        }
+        return $isCorrect;
     }
+
+
+    //postされた選択肢を単語に変換する。
+    //選択肢以外の数字がポストされた場合はfalse
+    public function getPostedWord_enRearrange($postAnswer, $shuffledArr, $id){
+        $postArr = explode(' ', $postAnswer);
+
+        //それぞれの選択肢を単語に置き換え
+        $postedWordArr = array();
+        $isPostedWords = true; //選択肢以外の数字を代入した場合false
+        for($i = 0; $i < count($shuffledArr); $i++){
+            if($shuffledArr[$postArr[$i]]){
+                $postedWordArr[$i] = $shuffledArr[$postArr[$i]];
+            }else{
+                $isPostedWords = false;
+            }
+        }
+
+        if($isPostedWords){
+            return $postedWordArr;
+        }else{
+            return false;
+        }
+    }
+
+
+
     //スコアを判定
     //param $id=>問題のID $postAnswer=>postデータ
     //return $score　
@@ -167,6 +207,48 @@ class Question extends AppModel{
         return implode(",", $incorrectWordsArr);
     }
 
+    public function getRearrangeScore($postAnswer, $shuffledArr, $id){
+
+        $postedWordArr = $this->getPostedWord_enRearrange($postAnswer, $shuffledArr, $id);
+
+        $correctCount = 0;
+
+        $correctWordsArr = $this->getEnWordsArr($id);
+        $totalCount = count($correctWordsArr);
+
+        if($postedWordArr){
+
+            for($i = 0; $i < count($correctWordsArr); $i++){
+                if($postedWordArr[$i] == $correctWordsArr[$i]){
+                    $correctCount += 1;
+                }
+            }
+
+        }
+        $score = ($correctCount / $totalCount) * 100;
+
+        return $score;
+    }
+
+    public function getRearrangeIncorrectWords($postAnswer, $shuffledArr, $id){
+        $postedWordArr = $this->getPostedWord_enRearrange($postAnswer, $shuffledArr, $id);
+        $correctWordsArr = $this->getEnWordsArr($id);
+
+        $incorrectWordArr = array();
+        if($postedWordArr){
+
+            for($i = 0; $i < count($correctWordsArr); $i++){
+                if($postedWordArr[$i] == $correctWordsArr[$i]){
+                }else{
+                    $incorrectWordArr[$i] = $correctWordsArr[$i];
+                }
+            }
+        }
+
+        return implode(",", $incorrectWordArr);
+
+
+    }
 
 
 

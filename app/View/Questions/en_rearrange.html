@@ -1,7 +1,27 @@
+
+
+<!DOCTYPE html>
+<html>
+<head lang="jp">
+    <meta charset="UTF-8">
+    <title></title>
+
+
+
+
+</head>
+<body>
+
+
 <?php var_dump($question);?>
 <?php var_dump($shuffleWords);?>
 <?php var_dump($answer);?>
 <?php var_dump($enHint);?>
+<?php var_dump($score);?>
+<?php var_dump($isCorrect);?>
+
+
+
 
 
 <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
@@ -9,3 +29,7 @@
 <!--required => false  にしないとブラウザのエラーがでる。-->
 <?php echo $this->Form->error('Question.rearrangeAnswer');?>
 <?php echo $this->Form->end('解答する！') ;?>
+
+
+</body>
+</html>
