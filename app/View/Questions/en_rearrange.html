@@ -21,7 +21,17 @@
 <?php var_dump($isCorrect);?>
 
 
-
+<?php
+echo '選択肢';
+echo '<br>';
+for($i = 0; $i < count($shuffleWords); $i++){
+    echo '<h>';
+    echo $i.'、';
+    echo $shuffleWords[$i];
+    echo '<br>';
+    echo '</h>';
+}
+?>
 
 
 <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
