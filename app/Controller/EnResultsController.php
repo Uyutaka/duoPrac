@@ -15,31 +15,38 @@ class EnResultsController extends AppController{
     }
 
     public function basic($date = null){
-//        $this->autoLayout = false;
 
-        $dateArr = $this->EnResult->getDateArr('basic');
-//        var_dump($dateArr);
+        $dateArr = $this->EnResult->getDateArr($this->action);
         $this->set('dateArr', $dateArr);
 
         for($i = 0; $i < count($dateArr); $i ++) {
-            $info[$i] = $this->EnResult->getIdQuestIdScoreArr($dateArr[$i], 'basic');
+            $info[$i] = $this->EnResult->getIdQuestIdScoreArr($dateArr[$i], $this->action);
+        }
+        $this->set('info', $info);
+
+        $this->ext = '.html';
+        $this->render('basic');
+    }
+
+
+
+    public function rearrange($date = null){
+        $dateArr = $this->EnResult->getDateArr($this->action);
+        $this->set('dateArr', $dateArr);
+        for($i = 0; $i < count($dateArr); $i ++) {
+            $info[$i] = $this->EnResult->getIdQuestIdScoreArr($dateArr[$i], $this->action);
         }
         $this->set('info', $info);
 
 
-
-
-
-
         $this->ext = '.html';
-        $this->render('basic');
-
-
-
-
-
+        $this->render('rearrange');
     }
 
+
+    //////////
+    //JSON関連
+    //////////
 
     //cal-heatmap用のJson出力
     //param  \ $type => 問題のタイプ

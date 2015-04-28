@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <?php echo $this->Html->script('d3.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('cal-heatmap.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('enRearrangeCalender.js', array( 'inline' => true));?>
+
+    <?php echo $this->Html->script('amcharts/amcharts.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('amcharts/light.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script('amcharts/serial.js', array( 'inline' => true));?>
+
+    <?php echo $this->Html->script('rearrangeChart.js', array( 'inline' => true));?>
+
+
+    <?php echo $this->Html->css('chartsEnResult.css');?>
+    <?php echo $this->Html->css('cal-heatmap.css');?>
+
+
+
+
+
+</head>
+<body>
+
+
+
+<div class="main">
+    <div id="cal-heatmap"></div>
+
+    <div id="chartdiv"></div>
+
+    <?php for($i = 0; $i < count($dateArr); $i ++){
+                echo($dateArr[$i]);
+                echo "<br>";
+    for($t = 0; $t < count($info[$i]); $t ++){
+    echo $info[$i][$t]['quest_id'];
+    echo ',';
+    }
+    echo "<br>";
+    echo "<br>";
+
+    }
+    ?>
+</div><!--#dates-->
+</div><!--.main-->
+
+<!--<div id="cal-heatmap"></div>-->
+
+</body>
+</html>

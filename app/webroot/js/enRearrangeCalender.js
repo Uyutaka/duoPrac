@@ -1,3 +1,6 @@
+/**
+ * Created by Yutaka on 15/04/28.
+ */
 //Json Example http://kamisama.github.io/cal-heatmap/datas-years.json
 
 
@@ -5,7 +8,7 @@ window.onload = function(){
 
     var cal = new CalHeatMap();
     cal.init({
-        data: "./tryNumJson/basic",
+        data: "./tryNumJson/rearrange",
         dataType: "json",
         start: new Date(2015, 2),
         domain: "month",

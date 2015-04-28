@@ -124,7 +124,7 @@ class QuestionsController extends AppController{
                 //記録をINSERT
                 $now = date("Y/m/d H:i:s", time());
                 $data = array(
-                    'type' => 'enRearrange',
+                    'type' => 'rearrange',
                     'quest_id' => $id,
                     'date' => $now,
                     'score' => $score,
