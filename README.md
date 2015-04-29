@@ -16,7 +16,12 @@ CREATE TABLE en_results (   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT  , type C
 ![基本問題2](/Screenshot/TOP.png)
 
 ###基本問題1(/Questions/enBasic/1)
-![基本問題2](/Screenshot/Question1.png)
+![基本問題1](/Screenshot/Question1.png)
+
+###並び替え問題1(/Questions/enRearrange/1)
+![並び替え問題1](/Screenshot/Question2.png)
+
+
 
 ###例文一覧(/ExSentences)
 ![例文一覧](/Screenshot/ExSentences.png)

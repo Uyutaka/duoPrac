@@ -45,12 +45,14 @@ for($i = 0; $i < count($shuffleWords); $i++){
 ?>
 
 <br><br>
-<!--フォーム-->
-<?php echo $this->Form->create('Question', array('type' => 'post')); ?>
-<?php echo $this->Form->input('Question.rearrangeAnswer', array('required' => false, 'style' => 'text-align:center'));?>
-<!--required => false  にしないとブラウザのエラーがでる。-->
-<?php echo $this->Form->error('Question.rearrangeAnswer');?>
-<?php echo $this->Form->end('解答する！') ;?>
+
+    <!--フォーム-->
+    <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
+    <?php echo $this->Form->input('Question.rearrangeAnswer', array('required' => false));?>
+    <!--required => false  にしないとブラウザのエラーがでる。-->
+    <?php echo $this->Form->error('Question.rearrangeAnswer');?>
+    <?php echo $this->Form->end('解答する！') ;?>
+
 
 
 <p><?php echo $score;?></p>
@@ -64,6 +66,12 @@ for($i = 0; $i < count($shuffleWords); $i++){
     <?php echo $answer;?>
 </div><!--.answerContent-->
 
+<br><br>
+
+    <div class="quest">
+        <div id="previous"><a href="<?php echo $id-1; ?>">前の問題</a></div>
+        <div id="next"><a href="<?php echo $id+1; ?>">次の問題</a></div>
+    </div><!--.quest-->
 </div><!--.main-->
 
 </body>

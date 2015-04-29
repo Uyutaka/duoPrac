@@ -4,10 +4,14 @@
 
 jQuery(function ($) {
 
-$(".main").css("text-align", "center");
+    $(".main").css("text-align", "center");
     $(".main .select").css("color", "green");
     $(".main .select").css("border", "solid 1px #0000ff");
+    $("#QuestionEnRearrangeForm").css("margin", "0px auto");
+    $("#next").css("float", "right");
+    $("#previous").css("float", "left");
 });
+
 
 
 $(document).ready(function(){
