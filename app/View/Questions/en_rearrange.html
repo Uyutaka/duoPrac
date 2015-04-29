@@ -1,45 +1,70 @@
-
-
 <!DOCTYPE html>
 <html>
 <head lang="jp">
     <meta charset="UTF-8">
     <title></title>
-
-
-
+    <?php echo $this->Html->script( 'jquery.min.js', array( 'inline' => true));?>
+    <?php echo $this->Html->script( 'enRearrangeQuestion.js', array( 'inline' => true));?>
 
 </head>
 <body>
 
+<div class="main">
+<h2>問題<?php echo $id;?></h2>
+<h2><?php echo($question);?></h2>
 
-<?php var_dump($question);?>
-<?php var_dump($shuffleWords);?>
-<?php var_dump($answer);?>
-<?php var_dump($enHint);?>
-<?php var_dump($score);?>
-<?php var_dump($isCorrect);?>
 
+<p>入力例：1 2 3 4 5</p>
+<p>注意：全て半角数字で入力してください。</p>
+
+
+    <p class="showHintBtn">HINT表示</p>
+    <div class="hintContent">
+        <?php echo $enHint;?>
+    </div><!--.showHintBtn-->
+
+
+
+
+
+
+
+    <a id="listenBtn">音声を聞く</a>
+    <br><br>
 
 <?php
 echo '選択肢';
 echo '<br>';
 for($i = 0; $i < count($shuffleWords); $i++){
-    echo '<h>';
-    echo $i.'、';
+    echo '<div class="select">';
+    echo $i.':';
     echo $shuffleWords[$i];
-    echo '<br>';
-    echo '</h>';
-}
+    echo '</div>';
+
+    }
 ?>
 
-
+<br><br>
+<!--フォーム-->
 <?php echo $this->Form->create('Question', array('type' => 'post')); ?>
-<?php echo $this->Form->input('Question.rearrangeAnswer', array('required' => false));?>
+<?php echo $this->Form->input('Question.rearrangeAnswer', array('required' => false, 'style' => 'text-align:center'));?>
 <!--required => false  にしないとブラウザのエラーがでる。-->
 <?php echo $this->Form->error('Question.rearrangeAnswer');?>
 <?php echo $this->Form->end('解答する！') ;?>
 
+
+<p><?php echo $score;?></p>
+<p><?php echo $msg;?></p>
+
+
+
+
+<p class="showAnswerBtn">答えを表示</p>
+<div class="answerContent">
+    <?php echo $answer;?>
+</div><!--.answerContent-->
+
+</div><!--.main-->
 
 </body>
 </html>

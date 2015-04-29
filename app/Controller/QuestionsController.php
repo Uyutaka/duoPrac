@@ -89,17 +89,11 @@ class QuestionsController extends AppController{
         $this->set('question', $this->Question->getJapanese($id));
         $this->set('answer', $this->Question->getEnglish($id));
 
-
-
         $enWordsArr = $this->Question->getEnWordsArr($id);
 
-
-
-
-
-
-
-
+        $score = '';
+        $isCorrect = '';
+        $msg = '';
 
         if ($this->request->is('post')) { //解答する！のボタンを押した時
             $this->Question->set($this->request->data);
@@ -113,12 +107,10 @@ class QuestionsController extends AppController{
 
 
                 $isCorrect = $this->Question->enRearrange_checkWord($postAnswer, $shuffledWordArr, $id);
-                $this->set('isCorrect', $isCorrect);
 
                 $this->set('shuffleWords', $shuffledWordArr);
 
                 $score = $this->Question->getRearrangeScore($postAnswer, $shuffledWordArr, $id);
-                $this->set('score', $score);
 
 
                 //記録をINSERT
@@ -131,22 +123,32 @@ class QuestionsController extends AppController{
                     'incorrect_words' => $this->Question->getRearrangeIncorrectWords($postAnswer, $shuffledWordArr, $id)
                 );
 
-                var_dump($data);
-
                 $this->EnResult->save($data);
+                $score = '点数:'. $score. '点';
 
 
-
+                //正解の時
+                if($isCorrect){
+                    $msg = '正解です！';
+                }else{
+                    $msg = '不正解です。';
+                }
 
             }
         }else{
             shuffle($enWordsArr);
             $this->Session->write('shuffledWordArr', $enWordsArr);
             $this->set('shuffleWords', $enWordsArr);
-
-
-
         }
+
+
+
+        $this->set('msg', $msg);
+        $this->set('score', $score);
+
+
+
+
 
 
 
